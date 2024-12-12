@@ -1,0 +1,117 @@
+$date
+	Tue Dec  3 04:16:48 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module tb_carry_lookahead_adder_4bit $end
+$var wire 4 ! Sum [3:0] $end
+$var wire 1 " Cout $end
+$var reg 4 # A [3:0] $end
+$var reg 4 $ B [3:0] $end
+$var reg 1 % Cin $end
+$scope module uut $end
+$var wire 4 & A [3:0] $end
+$var wire 4 ' B [3:0] $end
+$var wire 1 % Cin $end
+$var wire 1 ( P0C0 $end
+$var wire 1 ) P1G0 $end
+$var wire 1 * P1P0C0 $end
+$var wire 1 + P2G1 $end
+$var wire 1 , P2P1G0 $end
+$var wire 1 - P2P1P0C0 $end
+$var wire 1 . P3G2 $end
+$var wire 1 / P3P2G1 $end
+$var wire 1 0 P3P2P1G0 $end
+$var wire 1 1 P3P2P1P0C0 $end
+$var wire 4 2 Sum [3:0] $end
+$var wire 4 3 P [3:0] $end
+$var wire 4 4 G [3:0] $end
+$var wire 1 " Cout $end
+$var wire 5 5 C [4:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b0 5
+b0 4
+b0 3
+b0 2
+01
+00
+0/
+0.
+0-
+0,
+0+
+0*
+0)
+0(
+b0 '
+b0 &
+0%
+b0 $
+b0 #
+0"
+b0 !
+$end
+#10
+b1000 !
+b1000 2
+b1110 5
+1)
+1,
+b110 3
+b1 4
+b11 $
+b11 '
+b101 #
+b101 &
+#20
+1"
+10
+b1 !
+b1 2
+b1110 3
+b11111 5
+1%
+b1 $
+b1 '
+b1111 #
+b1111 &
+#30
+0"
+0)
+0,
+00
+b1111 !
+b1111 2
+b1111 3
+b0 4
+b0 5
+0%
+b101 $
+b101 '
+b1010 #
+b1010 &
+#40
+1"
+01
+b1111 !
+b1111 2
+0-
+0*
+0(
+b0 3
+b1111 4
+b11111 5
+1%
+b1111 $
+b1111 '
+b1111 #
+b1111 &
+#50

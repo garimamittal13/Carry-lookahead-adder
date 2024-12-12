@@ -1,0 +1,451 @@
+$date
+	Tue Dec  3 04:28:33 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module test_fulladder $end
+$var wire 4 ! Sum [3:0] $end
+$var wire 1 " Cout $end
+$var reg 4 # A [3:0] $end
+$var reg 4 $ B [3:0] $end
+$var reg 1 % Cin $end
+$var reg 1 & clk $end
+$scope module uut $end
+$var wire 4 ' A [3:0] $end
+$var wire 4 ( B [3:0] $end
+$var wire 1 % Cin $end
+$var wire 1 ) P0C0 $end
+$var wire 1 * P1G0 $end
+$var wire 1 + P1P0C0 $end
+$var wire 1 , P2G1 $end
+$var wire 1 - P2P1G0 $end
+$var wire 1 . P2P1P0C0 $end
+$var wire 1 / P3G2 $end
+$var wire 1 0 P3P2G1 $end
+$var wire 1 1 P3P2P1G0 $end
+$var wire 1 2 P3P2P1P0C0 $end
+$var wire 1 & clk $end
+$var wire 4 3 Sum_dff [3:0] $end
+$var wire 4 4 Sum [3:0] $end
+$var wire 4 5 P [3:0] $end
+$var wire 4 6 G [3:0] $end
+$var wire 1 7 Cout_dff $end
+$var wire 1 " Cout $end
+$var wire 1 8 Cin_dff $end
+$var wire 5 9 C [4:0] $end
+$var wire 4 : B_dff [3:0] $end
+$var wire 4 ; A_dff [3:0] $end
+$scope module dff_A0 $end
+$var wire 1 & clk $end
+$var wire 1 < d $end
+$var reg 1 = q $end
+$upscope $end
+$scope module dff_A1 $end
+$var wire 1 & clk $end
+$var wire 1 > d $end
+$var reg 1 ? q $end
+$upscope $end
+$scope module dff_A2 $end
+$var wire 1 & clk $end
+$var wire 1 @ d $end
+$var reg 1 A q $end
+$upscope $end
+$scope module dff_A3 $end
+$var wire 1 & clk $end
+$var wire 1 B d $end
+$var reg 1 C q $end
+$upscope $end
+$scope module dff_B0 $end
+$var wire 1 & clk $end
+$var wire 1 D d $end
+$var reg 1 E q $end
+$upscope $end
+$scope module dff_B1 $end
+$var wire 1 & clk $end
+$var wire 1 F d $end
+$var reg 1 G q $end
+$upscope $end
+$scope module dff_B2 $end
+$var wire 1 & clk $end
+$var wire 1 H d $end
+$var reg 1 I q $end
+$upscope $end
+$scope module dff_B3 $end
+$var wire 1 & clk $end
+$var wire 1 J d $end
+$var reg 1 K q $end
+$upscope $end
+$scope module dff_Cin $end
+$var wire 1 & clk $end
+$var wire 1 % d $end
+$var reg 1 8 q $end
+$upscope $end
+$scope module dff_Cout $end
+$var wire 1 & clk $end
+$var wire 1 7 d $end
+$var reg 1 " q $end
+$upscope $end
+$scope module dff_Sum0 $end
+$var wire 1 & clk $end
+$var wire 1 L d $end
+$var reg 1 M q $end
+$upscope $end
+$scope module dff_Sum1 $end
+$var wire 1 & clk $end
+$var wire 1 N d $end
+$var reg 1 O q $end
+$upscope $end
+$scope module dff_Sum2 $end
+$var wire 1 & clk $end
+$var wire 1 P d $end
+$var reg 1 Q q $end
+$upscope $end
+$scope module dff_Sum3 $end
+$var wire 1 & clk $end
+$var wire 1 R d $end
+$var reg 1 S q $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+xS
+xR
+xQ
+xP
+xO
+xN
+xM
+xL
+xK
+0J
+xI
+0H
+xG
+0F
+xE
+0D
+xC
+0B
+xA
+0@
+x?
+0>
+x=
+0<
+bx ;
+bx :
+bx0 9
+x8
+x7
+bx 6
+bx 5
+bx 4
+bx 3
+02
+x1
+x0
+x/
+0.
+x-
+x,
+0+
+x*
+0)
+b0 (
+b0 '
+0&
+0%
+b0 $
+b0 #
+x"
+bx !
+$end
+#5
+0P
+0R
+0N
+07
+0L
+b0 3
+b0 9
+0*
+0,
+0-
+0/
+00
+01
+b0 5
+b0 6
+0=
+0?
+0A
+b0 ;
+0C
+0E
+0G
+0I
+b0 :
+0K
+08
+1&
+#10
+1D
+1<
+0&
+b1 $
+b1 (
+b1 #
+b1 '
+#15
+1N
+b10 3
+b10 9
+b1 6
+0"
+0S
+0Q
+0O
+b0 !
+b0 4
+0M
+b1 :
+1E
+b1 ;
+1=
+1&
+#20
+0D
+1F
+0<
+1>
+0&
+b10 $
+b10 (
+b10 #
+b10 '
+#25
+0N
+1P
+b100 3
+b100 9
+b10 6
+0=
+b10 ;
+1?
+0E
+b10 :
+1G
+b10 !
+b10 4
+1O
+1&
+#30
+0F
+1H
+0>
+1@
+0&
+b100 $
+b100 (
+b100 #
+b100 '
+#35
+1R
+0P
+b1000 3
+b1000 9
+b100 6
+1Q
+b100 !
+b100 4
+0O
+1I
+b100 :
+0G
+1A
+b100 ;
+0?
+1&
+#40
+0H
+1J
+0@
+1B
+0&
+b1000 $
+b1000 (
+b1000 #
+b1000 '
+#45
+0R
+b0 3
+17
+b10000 9
+b1000 6
+0A
+b1000 ;
+1C
+0I
+b1000 :
+1K
+0Q
+b1000 !
+b1000 4
+1S
+1&
+#50
+1L
+b1 3
+1D
+1F
+1H
+1<
+1>
+1@
+0&
+b10001 9
+1%
+b1111 $
+b1111 (
+b1111 #
+b1111 '
+#55
+1R
+1P
+1N
+b1111 3
+b11111 9
+b1111 6
+1"
+0S
+b1 !
+b1 4
+1M
+18
+1I
+1G
+b1111 :
+1E
+1A
+1?
+b1111 ;
+1=
+1&
+#60
+0F
+0J
+0<
+0@
+0&
+b101 $
+b101 (
+b1010 #
+b1010 '
+#65
+17
+0L
+0P
+0N
+12
+0R
+1)
+1+
+1.
+b11111 9
+b0 3
+b1111 5
+b0 6
+0=
+b1010 ;
+0A
+0G
+b101 :
+0K
+1O
+1Q
+b1111 !
+b1111 4
+1S
+1&
+#70
+07
+1R
+1P
+1N
+1L
+02
+b1111 3
+0.
+0+
+0)
+1F
+0H
+1@
+0B
+0&
+b0 9
+0%
+b11 $
+b11 (
+b110 #
+b110 '
+#75
+0P
+0N
+1R
+b1100 9
+1,
+b1001 3
+b10 6
+b101 5
+0"
+08
+0I
+b11 :
+1G
+0C
+b110 ;
+1A
+1&
+#80
+1N
+0L
+b1010 3
+1)
+0>
+1B
+0&
+b1111 9
+1%
+b1100 #
+b1100 '
+#85
+17
+0P
+0N
+12
+0R
+1+
+1.
+b11111 9
+0,
+b0 3
+b0 6
+b1111 5
+0?
+b1100 ;
+1C
+18
+0M
+b1010 !
+b1010 4
+0Q
+1&
+#90
+0&

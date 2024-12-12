@@ -1,0 +1,90 @@
+.include TSMC_180nm.txt  
+
+.param SUPPLY=1.8
+.param LAMBDA=0.09u
+.param width_N={5*LAMBDA}     
+.param width_P={2*width_N}     
+.global gnd vdd  
+Vdd vdd gnd 'SUPPLY'
+
+.subckt inv in out vdd gnd
+M1 out in gnd gnd CMOSN W={width_N} L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+M2 out in vdd vdd CMOSP W={width_P} L={2*LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+.ends inv
+
+.subckt and A B Y vdd gnd
+M1 out A vdd vdd CMOSP W={width_P} L={2*LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+M2 out B vdd vdd CMOSP W={width_P} L={2*LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+M3 out A C C CMOSN W={2*width_N} L={2*LAMBDA}
++ AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*2*LAMBDA+2*width_N}
+M4 C B gnd gnd CMOSN W={2*width_N} L={2*LAMBDA}
++ AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+Xinv out Y vdd gnd inv
+.ends and
+
+.subckt or A B Y vdd gnd
+M1 C A vdd vdd CMOSP W={2*width_P} L={2*LAMBDA}
++ AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+M2 out B C C CMOSP W={2*width_P} L={2*LAMBDA}
++ AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+M3 out A gnd gnd CMOSN W={width_N} L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+M4 out B gnd gnd CMOSN W={width_N} L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+Xinv out Y vdd gnd inv
+.ends or
+
+*C0, A0, B0, A1, B1, A2, B2, A3, B3 will be given
+*have to find S0, S1, S2, S3, Cout
+
+.subckt sum A B Y vdd gnd
+Xa A Anot vdd gnd inv
+Xb B Bnot vdd gnd inv
+X1 A Bnot O1 vdd gnd and
+X2 Anot B O2 vdd gnd and
+X3 O1 O2 Y vdd gnd or
+.ends sum
+
+.subckt generate A B Y vdd gnd
+Xg A B Y vdd gnd and
+.ends generate
+
+.subckt propagate A B Y vdd gnd
+Xp A B Y vdd gnd sum
+.ends propagate
+
+Xp0 A0 B0 P0 vdd gnd propagate
+Xp1 A1 B1 P1 vdd gnd propagate
+Xp2 A2 B2 P2 vdd gnd propagate
+Xp3 A3 B3 P3 vdd gnd propagate
+Xg0 A0 B0 G0 vdd gnd generate
+Xg1 A1 B1 G1 vdd gnd generate
+Xg2 A2 B2 G2 vdd gnd generate
+Xg3 A3 B3 G3 vdd gnd generate
+
+VX1 a0 gnd 1.8
+VX2 a1 gnd pulse 0 1.8 0ns 100ps 100ps 10ns 20ns
+VX3 a2 gnd 0
+VX4 a3 gnd pulse 0 1.8 0ns 100ps 100ps 10ns 20ns
+VX11 b0 gnd pulse 0 1.8 0ns 100ps 100ps 10ns 20ns
+VX21 b1 gnd 1.8
+VX31 b2 gnd pulse 0 1.8 0ns 100ps 100ps 10ns 20ns   
+VX41 b3 gnd 0
+
+.tran 0.1n 30n
+.control
+run
+set color0=white ** color0 is used to set the background of the plot (manual sec:17.7)
+set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7)
+set curplottitle= Garima_2023102069
+plot V(a0) v(b0)+2 v(p0)+4 v(g0)+6 
+plot V(a1) v(b1)+2 v(p1)+4 v(g1)+6 
+plot V(a2) v(b2)+2 v(p2)+4 v(g2)+6 
+plot V(a3) v(b3)+2 v(p3)+4 v(g3)+6 
+.endc
+
+.end

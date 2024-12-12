@@ -1,0 +1,66 @@
+.include TSMC_180nm.txt  
+
+.param SUPPLY=1.8
+.param LAMBDA=0.09u
+.param width_N={5*LAMBDA}     
+.param width_P={10*LAMBDA}     
+.global gnd vdd  
+Vdd vdd gnd 'SUPPLY'
+
+.subckt inv in out vdd gnd
+M10 out in gnd gnd CMOSN W={width_N} L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+M11 out in vdd vdd CMOSP W={width_P} L={2*LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+.ends inv
+
+.subckt dff Q D clk vdd gnd 
+
+M1 X D gnd gnd CMOSN W={width_N} L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+M2 X clk A A CMOSP W={2*width_P} L={2*LAMBDA}
++ AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+M3 A D vdd vdd CMOSP W={2*width_P} L={2*LAMBDA}
++ AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+
+M4 B clk gnd gnd CMOSN W={2*width_N} L={2*LAMBDA}
++ AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+M5 Y X B B CMOSN W={2*width_N} L={2*LAMBDA}
++ AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+M6 Y clk vdd vdd CMOSP W={width_P} L={2*LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+M7 C Y gnd gnd CMOSN W={2*width_N} L={2*LAMBDA}
++ AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+M8 Z clk C C CMOSN W={2*width_N} L={2*LAMBDA}
++ AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+M9 Z Y vdd vdd CMOSP W={width_P} L={2*LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+Xinv Z Q vdd gnd inv
+.ends dff
+
+Vclk clk gnd PULSE(1.8 0 0 0n 0n 5n 10n)
+Vd D gnd PULSE(0 1.8 5.016n 0n 0n 10n 20n)
+
+Xdff Q D clk vdd gnd dff
+
+.tran 0.01n 20n
+* Measuring tpcq
+.measure tran tpd_rise
++ TRIG v(clk) VAL='SUPPLY/2' RISE=1
++ TARG v(q) VAL='SUPPLY/2' RISE=1
+.measure tran tpd_fall
++ TRIG v(clk) VAL='SUPPLY/2' RISE=2
++ TARG v(q) VAL='SUPPLY/2' FALL=1
+.measure tran total_prop_delay param='(tpd_rise+tpd_fall)/2'
+
+.control
+run
+set color0=white ** color0 is used to set the background of the plot (manual sec:17.7)
+set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7)
+set curplottitle= Garima_2023102069
+plot V(D) V(Q)+2 V(clk)-2
+.endc
+
+.end

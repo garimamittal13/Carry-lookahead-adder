@@ -1,0 +1,96 @@
+.include TSMC_180nm.txt  
+
+.param SUPPLY=1.8
+.param LAMBDA=0.09u
+.param width_N={5*LAMBDA}     
+.param width_P={10*LAMBDA}     
+* .param width_N_fast={1*width_N}  ; Enhanced width for faster pull-down transistors
+.global gnd vdd  
+Vdd vdd gnd 'SUPPLY'
+
+* SPICE3 file created from dff1.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 x clk m23 w_0_0# CMOSP w=20 l=2
++  ad=100 pd=50 as=120 ps=52
+M1001 m45 x y Gnd CMOSN w=10 l=2
++  ad=60 pd=32 as=50 ps=30
+M1002 qn y vdd Vdd CMOSP w=10 l=2
++  ad=50 pd=30 as=260 ps=142
+M1003 y clk vdd w_52_0# CMOSP w=10 l=2
++  ad=50 pd=30 as=0 ps=0
+M1004 out qn vdd w_130_n13# CMOSP w=10 l=2
++  ad=140 pd=48 as=0 ps=0
+M1005 gnd clk m45 Gnd CMOSN w=10 l=2
++  ad=225 pd=116 as=0 ps=0
+M1006 m23 d vdd w_0_0# CMOSP w=20 l=2
++  ad=0 pd=0 as=0 ps=0
+M1007 m78 y gnd Gnd CMOSN w=10 l=2
++  ad=60 pd=32 as=0 ps=0
+M1008 qn clk m78 Gnd CMOSN w=10 l=2
++  ad=50 pd=30 as=0 ps=0
+M1009 out qn gnd Gnd CMOSN w=5 l=2
++  ad=70 pd=38 as=0 ps=0
+M1010 x d gnd Gnd CMOSN w=5 l=2
++  ad=65 pd=36 as=0 ps=0
+C0 vdd x 0.04fF
+C1 vdd qn 0.13fF
+C2 d m2_n11_n6# 0.04fF
+C3 w_130_n13# qn 0.06fF
+C4 clk y 0.10fF
+C5 y w_52_0# 0.03fF
+C6 clk m3_34_n7# 0.08fF
+C7 gnd y 0.70fF
+C8 clk x 0.23fF
+C9 clk qn 0.29fF
+C10 gnd out 0.03fF
+C11 w_130_n13# vdd 0.11fF
+C12 w_0_0# x 0.04fF
+C13 gnd x 0.08fF
+C14 gnd qn 0.05fF
+C15 x y 0.05fF
+C16 vdd w_52_0# 0.10fF
+C17 vdd w_0_0# 0.10fF
+C18 clk d 0.06fF
+C19 vdd y 0.10fF
+C20 d w_0_0# 0.06fF
+C21 vdd out 0.03fF
+C22 vdd m3_34_n7# 0.31fF
+C23 gnd d 0.02fF
+C24 clk w_52_0# 0.09fF
+C25 w_130_n13# out 0.03fF
+C26 clk w_0_0# 0.06fF
+C29 gnd Gnd 0.42fF
+C30 clk Gnd 0.56fF
+C31 out Gnd 0.06fF
+C32 vdd Gnd 0.09fF
+C33 qn Gnd 0.34fF
+C34 x Gnd 0.26fF
+C35 d Gnd 0.15fF
+C36 w_130_n13# Gnd 0.89fF
+C37 w_52_0# Gnd 0.80fF
+C38 w_0_0# Gnd 1.06fF
+
+Vclk clk gnd PULSE(1.8 0 0 0n 0n 5n 10n)
+Vd D gnd PULSE(0 1.8 4.98n 0n 0n 10n 20n)
+
+.tran 0.01n 20n
+* Measuring tpcq
+.measure tran tpd_rise
++ TRIG v(clk) VAL='SUPPLY/2' RISE=1
++ TARG v(out) VAL='SUPPLY/2' RISE=1
+.measure tran tpd_fall
++ TRIG v(clk) VAL='SUPPLY/2' RISE=2
++ TARG v(out) VAL='SUPPLY/2' FALL=1
+.measure tran total_prop_delay param='(tpd_rise+tpd_fall)/2'
+
+.control
+run
+set color0=white ** color0 is used to set the background of the plot (manual sec:17.7)
+set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7)
+set curplottitle= Garima_2023102069
+plot V(D) V(out)+2 V(clk)-2
+.endc
+
+.end
